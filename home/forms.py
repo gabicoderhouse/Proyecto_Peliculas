@@ -6,7 +6,7 @@ class FormPelicula(forms.Form):
     resumen = forms.CharField(max_length=200, label='Resumen')
     anio_estreno = forms.IntegerField(label='Año Estreno')    
     duracion = forms.IntegerField(label='Duración(min)')
-    clasificacion_edad = forms.IntegerField(label='Clasificación') 
+    clasificacion_edad = forms.IntegerField(label='Mayores de') 
     
     
 class BusquedaPelicula(forms.Form):

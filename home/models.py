@@ -7,3 +7,6 @@ class Pelicula(models.Model):
     anio_estreno = models.IntegerField()    
     duracion = models.IntegerField()
     clasificacion_edad = models.IntegerField() 
+
+    def __str__(self):
+        return f'Nombre: {self.nombre} - Género: {self.genero}'

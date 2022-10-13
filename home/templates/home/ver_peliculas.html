@@ -5,13 +5,13 @@
 {% endblock title_pagina %}
 
 {% block mi_contenido %}
-<a class="navbar-brand" href={% url 'crear_pelicula' %}>Crear Pelicula</a>
-<p>Listado de Peliculas:</p>
+<a class="navbar-brand" href={% url 'crear_pelicula' %}>Agregar Pelicula</a>
+<p>Listado de peliculas:</p>
 
-{% comment %} <form action={% url 'ver_peliculas' %} method="GET">
+<form action={% url 'ver_peliculas' %} method="GET">
     {{formulario}}
     <button>Buscar</button>
-</form> {% endcomment %}
+</form>
 <p>
     {% if peliculas %}
 

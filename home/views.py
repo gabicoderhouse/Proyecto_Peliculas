@@ -2,21 +2,18 @@ from django.shortcuts import redirect, render
 from home.models import Pelicula
 from home.forms import FormPelicula, BusquedaPelicula
 
-from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
 def ver_peliculas(request):
     
     nombre = request.GET.get('nombre', None)
     
     if nombre:
-        pelicula = Pelicula.objects.filter(nombre__icontains=nombre)
+        peliculas = Pelicula.objects.filter(nombre__icontains=nombre)
     else:
-        pelicula = Pelicula.objects.all()
+        peliculas = Pelicula.objects.all()
         
     formulario = BusquedaPelicula()
     
-    return render(request, 'home/ver_perliculas.html', {'pelicula': pelicula, 'formulario': formulario})
+    return render(request, 'home/ver_peliculas.html', {'peliculas': peliculas, 'formulario': formulario})
 
 def crear_pelicula(request):
     
@@ -69,9 +66,9 @@ def editar_pelicula(request, id):
     formulario =  FormPelicula(
         initial={
             'nombre': pelicula.nombre,
-            'tipo': pelicula.genero,
-            'edad': pelicula.resumen,
-            'fecha_nacimiento': pelicula.anio_estreno,
+            'genero': pelicula.genero,
+            'resumen': pelicula.resumen,
+            'anio_estreno': pelicula.anio_estreno,
             'duracion': pelicula.duracion,
             'clasificacion_edad': pelicula.clasificacion_edad
         }
@@ -83,6 +80,10 @@ def eliminar_pelicula(request, id):
     pelicula = Pelicula.objects.get(id=id)
     pelicula.delete()
     return redirect('ver_peliculas')
+  
+def acerca_de(request):
+    
+    return render(request, 'home/acerca_de.html')      
   
 def index(request):
     
