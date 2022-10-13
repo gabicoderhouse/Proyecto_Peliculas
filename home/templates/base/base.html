@@ -21,7 +21,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href={% url 'index' %}>Indice</a>
+                <a class="navbar-brand" href={% url 'index' %}>Inicio</a>
                 <a class="navbar-brand" href={% url 'ver_peliculas' %}>Ver Películas</a>
             </div>
         </nav>
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">Acerca de</a></li>
+                            <li class="list-inline-item"><a href={% url 'acerca_de' %}>Acerca de</a></li>
                             <li class="list-inline-item">⋅</li>
                             <li class="list-inline-item"><a href="#!">Contacto</a></li>
                             <li class="list-inline-item">⋅</li>
@@ -47,7 +47,7 @@
                             <li class="list-inline-item"><a href="#!">Política de Privacidad</a></li>
                         </ul>
                         <p class="text-muted small mb-4 mb-lg-0">&copy; 2022. Derechos Reservados.</p>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </footer>
