@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block title_pagina %}
+<title>Ver peliculas</title>
+{% endblock title_pagina %}
+
+{% block mi_contenido %}
+<a class="navbar-brand" href={% url 'crear_pelicula' %}>Crear Pelicula</a>
+<p>Listado de Peliculas:</p>
+
+{% comment %} <form action={% url 'ver_peliculas' %} method="GET">
+    {{formulario}}
+    <button>Buscar</button>
+</form> {% endcomment %}
+<p>
+    {% if peliculas %}
+
+        {% for pelicula in peliculas %}
+            <li>
+                {{pelicula}}
+                <a href={% url 'editar_pelicula' pelicula.id %}>Editar</a>
+                <a href={% url 'eliminar_pelicula' pelicula.id %}>Eliminar</a>
+            </li>
+        {% endfor %}
+
+    {% else %}
+        <p>No se encontraron resultados.</p>
+    {% endif %}
+
+</p>
+{% endblock mi_contenido %}

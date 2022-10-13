@@ -5,7 +5,7 @@ class FormPelicula(forms.Form):
     genero = forms.CharField(max_length=30, label='Género')
     resumen = forms.CharField(max_length=200, label='Resumen')
     anio_estreno = forms.IntegerField(label='Año Estreno')    
-    duracion = forms.IntegerField(label='Duración(seg)')
+    duracion = forms.IntegerField(label='Duración(min)')
     clasificacion_edad = forms.IntegerField(label='Clasificación') 
     
     
