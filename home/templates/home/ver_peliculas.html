@@ -1,27 +1,27 @@
 {% extends 'base/base.html' %}
 
 {% block title_pagina %}
-<title>Ver peliculas</title>
+<title>Ver Películas</title>
 {% endblock title_pagina %}
 
 {% block mi_contenido %}
 <a class="navbar-brand" href={% url 'crear_pelicula' %}>Agregar Peliculas</a>
-<p>Listado de Peliculas:</p>
+<p>Listado de Películas:</p>
 <form action={% url 'ver_peliculas' %} method="GET">
     {{formulario}}
     <button>Buscar</button>
 </form>
 <p>
     {% if peliculas %}
-
+    <ul class="list-group">
         {% for pelicula in peliculas %}
-            <li>
+            <li class="list-group-item" >
                 {{pelicula}}
                 <a href={% url 'editar_pelicula' pelicula.id %}>Editar</a>
                 <a href={% url 'eliminar_pelicula' pelicula.id %}>Eliminar</a>
             </li>
         {% endfor %}
-
+    </ul>
     {% else %}
         <p>No se encontraron resultados.</p>
     {% endif %}

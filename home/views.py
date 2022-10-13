@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from django.shortcuts import render, redirect
-=======
 from django.shortcuts import redirect, render
->>>>>>> 209f79b95a4b4dbc3515221d3ce17b31b39118d5
 from home.models import Pelicula
 from home.forms import FormPelicula, BusquedaPelicula
 
@@ -17,11 +13,7 @@ def ver_peliculas(request):
         
     formulario = BusquedaPelicula()
     
-<<<<<<< HEAD
-    return render(request, 'home/ver_peliculas.html', {'peliculas': peliculas, 'formulario':formulario})
-=======
     return render(request, 'home/ver_peliculas.html', {'peliculas': peliculas, 'formulario': formulario})
->>>>>>> 209f79b95a4b4dbc3515221d3ce17b31b39118d5
 
 def crear_pelicula(request):
     
