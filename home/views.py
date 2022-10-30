@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from home.models import Pelicula
 from home.forms import FormPelicula, BusquedaPelicula
+from django.contrib.auth.decorators import login_required
 
 def ver_peliculas(request):
     
@@ -15,6 +16,7 @@ def ver_peliculas(request):
     
     return render(request, 'home/ver_peliculas.html', {'peliculas': peliculas, 'formulario': formulario})
 
+@login_required
 def crear_pelicula(request):
     
     if request.method == 'POST':
@@ -40,6 +42,7 @@ def crear_pelicula(request):
     
     return render(request, 'home/crear_pelicula.html', {'formulario': formulario})
 
+@login_required
 def editar_pelicula(request, id):
     
     pelicula = Pelicula.objects.get(id=id)
@@ -76,6 +79,7 @@ def editar_pelicula(request, id):
     
     return render(request, 'home/editar_pelicula.html', {'formulario': formulario, 'pelicula': pelicula})
     
+@login_required    
 def eliminar_pelicula(request, id):
     pelicula = Pelicula.objects.get(id=id)
     pelicula.delete()
