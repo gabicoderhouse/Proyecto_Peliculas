@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from home.models import Pelicula
 from home.forms import FormPelicula, BusquedaPelicula
 from django.contrib.auth.decorators import login_required
+from django.views.generic import  DetailView
 
 def ver_peliculas(request):
     
@@ -20,18 +21,17 @@ def ver_peliculas(request):
 def crear_pelicula(request):
     
     if request.method == 'POST':
-        formulario = FormPelicula(request.POST)
-        
+        formulario = FormPelicula(request.POST, request.FILES)
         if formulario.is_valid():
             datos = formulario.cleaned_data
-            
             pelicula = Pelicula(
                 nombre=datos['nombre'],
                 genero=datos['genero'],
-                resumen=datos['resumen'],
                 anio_estreno=datos['anio_estreno'],
                 duracion=datos['duracion'],
-                clasificacion_edad=datos['clasificacion_edad']
+                clasificacion_edad=datos['clasificacion_edad'],
+                imagen=datos['imagen'],
+                resumen=datos['resumen']
             )
             pelicula.save()
             return redirect('ver_peliculas')
@@ -48,23 +48,21 @@ def editar_pelicula(request, id):
     pelicula = Pelicula.objects.get(id=id)
     
     if request.method == 'POST':
-        formulario = FormPelicula(request.POST)
-        
+        formulario = FormPelicula(request.POST, request.FILES)
         if formulario.is_valid():
-            datos = formulario.cleaned_data
-            
+            datos = formulario.cleaned_data        
             pelicula.nombre = datos['nombre']
             pelicula.genero = datos['genero']
-            pelicula.resumen = datos['resumen']
             pelicula.anio_estreno = datos['anio_estreno']
             pelicula.duracion = datos['duracion']
             pelicula.clasificacion_edad = datos['clasificacion_edad']
+            pelicula.resumen = datos['resumen']
+            if datos['imagen']:
+                pelicula.imagen=datos['imagen']
             pelicula.save()
-            
             return redirect('ver_peliculas')
         else:
-            return render(request, 'home/editar_pelicula.html', {'formulario': formulario})
-            
+            return render(request, 'home/editar_pelicula.html', {'formulario': formulario})          
     
     formulario =  FormPelicula(
         initial={
@@ -73,7 +71,8 @@ def editar_pelicula(request, id):
             'resumen': pelicula.resumen,
             'anio_estreno': pelicula.anio_estreno,
             'duracion': pelicula.duracion,
-            'clasificacion_edad': pelicula.clasificacion_edad
+            'clasificacion_edad': pelicula.clasificacion_edad,
+            'imagen': pelicula.imagen
         }
     )
     
@@ -92,3 +91,7 @@ def acerca_de(request):
 def index(request):
     
     return render(request, 'home/index.html')    
+
+class VerPelicula(DetailView):
+    model = Pelicula
+    template_name = 'home/ver_una_pelicula.html'

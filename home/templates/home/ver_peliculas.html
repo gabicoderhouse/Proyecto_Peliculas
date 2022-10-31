@@ -16,7 +16,8 @@
     <ul class="list-group">
         {% for pelicula in peliculas %}
             <li class="list-group-item" >
-                {{pelicula}}
+                <a href={% url 'ver_una_pelicula' pelicula.id %}>{{pelicula}}</a> 
+                <img src="/media/{{pelicula.imagen}}" width="150" alt="">
                 <a href={% url 'editar_pelicula' pelicula.id %}>Editar</a>
                 <a href={% url 'eliminar_pelicula' pelicula.id %}>Eliminar</a>
             </li>

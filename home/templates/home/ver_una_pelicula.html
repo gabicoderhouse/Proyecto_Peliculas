@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block title_pagina %}
+<title>Película</title>
+{% endblock title_pagina %}
+
+{% block mi_contenido %}
+
+
+<div class="card border-success" style="width: 18rem;">
+    <h5 class="card-title">{{pelicula.nombre}}</h5>
+    <h5 class="card-title">{{pelicula.genero}}</h5>
+    <div class="card-body">       
+        <p class="card-text">{{pelicula.resumen | safe}}</p>
+        <ul class="list-group">
+            <li class="list-group-item">Año Estreno: {{pelicula.anio_estreno}}</li>
+            <li class="list-group-item">Duración: {{pelicula.duracion}}</li>
+            <li class="list-group-item">Clasificación: {{pelicula.clasificacion_edad}}</li>
+        </ul>    
+    </div>
+</div>
+
+{% endblock mi_contenido %}

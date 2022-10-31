@@ -6,11 +6,12 @@
 
 
 {% block mi_contenido %}
-<form action={% url 'crear_pelicula' %} method="POST">
+<form action={% url 'crear_pelicula' %} method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
     <table>
+        {{formulario.media}}
         {{formulario}}
     </table>
-    <button>Crear</button>
+    <input type="submit" value="Crear">
 </form>
 {% endblock mi_contenido %}
