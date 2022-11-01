@@ -3,6 +3,7 @@ from home.models import Pelicula
 from home.forms import FormPelicula, BusquedaPelicula
 from django.contrib.auth.decorators import login_required
 from django.views.generic import  DetailView
+from datetime import datetime
 
 def ver_peliculas(request):
     
@@ -31,7 +32,9 @@ def crear_pelicula(request):
                 duracion=datos['duracion'],
                 clasificacion_edad=datos['clasificacion_edad'],
                 imagen=datos['imagen'],
-                resumen=datos['resumen']
+                resumen=datos['resumen'],
+                user = request.user,
+                fe_alta = datetime.now()
             )
             pelicula.save()
             return redirect('ver_peliculas')
@@ -47,21 +50,26 @@ def editar_pelicula(request, id):
     
     pelicula = Pelicula.objects.get(id=id)
     
-    if request.method == 'POST':
-        formulario = FormPelicula(request.POST, request.FILES)
-        if formulario.is_valid():
-            datos = formulario.cleaned_data        
-            pelicula.nombre = datos['nombre']
-            pelicula.genero = datos['genero']
-            pelicula.anio_estreno = datos['anio_estreno']
-            pelicula.duracion = datos['duracion']
-            pelicula.clasificacion_edad = datos['clasificacion_edad']
-            pelicula.resumen = datos['resumen']
-            pelicula.imagen=datos['imagen']
-            pelicula.save()
-            return redirect('ver_peliculas')
-        else:
-            return render(request, 'home/editar_pelicula.html', {'formulario': formulario})          
+    if pelicula.user.id != request.user.id:
+        return redirect('ver_peliculas')
+    else:    
+        if request.method == 'POST':
+            formulario = FormPelicula(request.POST, request.FILES)
+            if formulario.is_valid():
+                datos = formulario.cleaned_data        
+                pelicula.nombre = datos['nombre']
+                pelicula.genero = datos['genero']
+                pelicula.anio_estreno = datos['anio_estreno']
+                pelicula.duracion = datos['duracion']
+                pelicula.clasificacion_edad = datos['clasificacion_edad']
+                pelicula.resumen = datos['resumen']
+                pelicula.imagen=datos['imagen']
+                pelicula.user = request.user
+                pelicula.fe_cambio = datetime.now()
+                pelicula.save()
+                return redirect('ver_peliculas')
+            else:
+                return render(request, 'home/editar_pelicula.html', {'formulario': formulario})   
     
     formulario =  FormPelicula(
         initial={
@@ -80,8 +88,11 @@ def editar_pelicula(request, id):
 @login_required    
 def eliminar_pelicula(request, id):
     pelicula = Pelicula.objects.get(id=id)
-    pelicula.delete()
-    return redirect('ver_peliculas')
+    if pelicula.user.id != request.user.id:
+        return redirect('ver_peliculas')
+    else:   
+        pelicula.delete()
+        return redirect('ver_peliculas')
   
 def acerca_de(request):
     

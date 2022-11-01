@@ -10,7 +10,9 @@
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="{{pelicula.imagen.url}}" class="img-fluid rounded-start" alt="...">
+        {% if pelicula.imagen %}
+          <img src="{{pelicula.imagen.url}}" class="img-fluid rounded-start" alt="...">
+        {% endif %}
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -22,6 +24,10 @@
                     <li class="list-group-item"><small  class="text-muted">Año Estreno: {{pelicula.anio_estreno}}</samll></li>
                     <li class="list-group-item"><small  class="text-muted">Duración: {{pelicula.duracion}}</samll></li>
                     <li class="list-group-item"><small  class="text-muted">Clasificación: {{pelicula.clasificacion_edad}}</samll></li>
+                    <li class="list-group-item"><small  class="text-muted">Creado por {{pelicula.user}} - {{pelicula.fe_alta}}</samll></li>
+                    {% if pelicula.fe_cambio %}  
+                      <li class="list-group-item"><small  class="text-muted">Ultimos cambios: {{pelicula.fe_cambio}}</samll></li>
+                    {% endif %}
                 </ul>    
             </div>
       </div>

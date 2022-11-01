@@ -11,8 +11,8 @@ class FormPelicula(forms.Form):
     clasificacion_edad = forms.IntegerField(label='Mayores de') 
     resumen=RichTextFormField(required=False)
     imagen=forms.ImageField(required=False)
-
     
+  
     
 class BusquedaPelicula(forms.Form):
     nombre = forms.CharField(max_length=60, required=False)

@@ -17,7 +17,9 @@
         {% for pelicula in peliculas %}
             <li class="list-group-item" >
                 <a href={% url 'ver_una_pelicula' pelicula.id %} >{{pelicula}}</a> 
-                <img src="{{pelicula.imagen.url}}" width="150" alt="">
+                {% if pelicula.imagen %}
+                    <img src="{{pelicula.imagen.url}}" width="150" alt="">
+                {% endif %}
                 <a href={% url 'editar_pelicula' pelicula.id %} class="btn btn-info btn-sm">Editar</a>
                 <a href={% url 'eliminar_pelicula' pelicula.id %} class="btn btn-warning btn-sm">Eliminar</a>
             </li>
