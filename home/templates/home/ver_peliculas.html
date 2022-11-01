@@ -7,7 +7,7 @@
 {% block mi_contenido %}
 <a class="navbar-brand" href={% url 'crear_pelicula' %}>Agregar Peliculas</a>
 <p>Listado de Películas:</p>
-<form action={% url 'ver_peliculas' %} method="GET">
+<form action={% url 'ver_peliculas' %} class="btn btn-info btn-sm"  method="GET">
     {{formulario}}
     <button>Buscar</button>
 </form>
@@ -16,10 +16,10 @@
     <ul class="list-group">
         {% for pelicula in peliculas %}
             <li class="list-group-item" >
-                <a href={% url 'ver_una_pelicula' pelicula.id %}>{{pelicula}}</a> 
-                <img src="/media/{{pelicula.imagen}}" width="150" alt="">
-                <a href={% url 'editar_pelicula' pelicula.id %}>Editar</a>
-                <a href={% url 'eliminar_pelicula' pelicula.id %}>Eliminar</a>
+                <a href={% url 'ver_una_pelicula' pelicula.id %} >{{pelicula}}</a> 
+                <img src="{{pelicula.imagen.url}}" width="150" alt="">
+                <a href={% url 'editar_pelicula' pelicula.id %} class="btn btn-info btn-sm">Editar</a>
+                <a href={% url 'eliminar_pelicula' pelicula.id %} class="btn btn-warning btn-sm">Eliminar</a>
             </li>
         {% endfor %}
     </ul>

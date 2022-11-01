@@ -57,8 +57,7 @@ def editar_pelicula(request, id):
             pelicula.duracion = datos['duracion']
             pelicula.clasificacion_edad = datos['clasificacion_edad']
             pelicula.resumen = datos['resumen']
-            if datos['imagen']:
-                pelicula.imagen=datos['imagen']
+            pelicula.imagen=datos['imagen']
             pelicula.save()
             return redirect('ver_peliculas')
         else:
