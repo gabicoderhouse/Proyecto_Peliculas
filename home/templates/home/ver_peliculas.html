@@ -13,17 +13,26 @@
 </form>
 <p>
     {% if peliculas %}
-    <ul class="list-group">
+    <ul class="list-group">   
+        <table class="table table-striped">
+            <tbody>
         {% for pelicula in peliculas %}
-            <li class="list-group-item" >
-                <a href={% url 'ver_una_pelicula' pelicula.id %} >{{pelicula}}</a> 
+            <tr>
                 {% if pelicula.imagen %}
-                    <img src="{{pelicula.imagen.url}}" width="150" alt="">
+                    <td><img src="{{pelicula.imagen.url}}" width="150" alt=""></td>
+                {% else %}
+                    <td></td>  
                 {% endif %}
-                <a href={% url 'editar_pelicula' pelicula.id %} class="btn btn-info btn-sm">Editar</a>
-                <a href={% url 'eliminar_pelicula' pelicula.id %} class="btn btn-warning btn-sm">Eliminar</a>
-            </li>
+                <td><a href={% url 'ver_una_pelicula' pelicula.id %} >{{pelicula}}</td> 
+
+                <td>
+                    <a href={% url 'editar_pelicula' pelicula.id %} class="btn btn-info btn-sm">Editar</a>
+                    <a href={% url 'eliminar_pelicula' pelicula.id %} class="btn btn-warning btn-sm">Eliminar</a>
+                </td>
+            </tr>
         {% endfor %}
+            </tbody>
+        </table>
     </ul>
     {% else %}
         <p>No se encontraron resultados.</p>

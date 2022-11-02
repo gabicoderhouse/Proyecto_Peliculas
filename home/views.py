@@ -50,7 +50,7 @@ def editar_pelicula(request, id):
     
     pelicula = Pelicula.objects.get(id=id)
     
-    if pelicula.user.id != request.user.id:
+    if pelicula.user.id != request.user.id and not request.user.is_superuser :
         return redirect('ver_peliculas')
     else:    
         if request.method == 'POST':
@@ -63,7 +63,7 @@ def editar_pelicula(request, id):
                 pelicula.duracion = datos['duracion']
                 pelicula.clasificacion_edad = datos['clasificacion_edad']
                 pelicula.resumen = datos['resumen']
-                pelicula.imagen=datos['imagen']
+                pelicula.imagen = datos['imagen']
                 pelicula.user = request.user
                 pelicula.fe_cambio = datetime.now()
                 pelicula.save()
@@ -88,18 +88,16 @@ def editar_pelicula(request, id):
 @login_required    
 def eliminar_pelicula(request, id):
     pelicula = Pelicula.objects.get(id=id)
-    if pelicula.user.id != request.user.id:
+    if pelicula.user.id != request.user.id and not request.user.is_superuser :
         return redirect('ver_peliculas')
     else:   
         pelicula.delete()
         return redirect('ver_peliculas')
   
-def acerca_de(request):
-    
+def acerca_de(request):   
     return render(request, 'home/acerca_de.html')      
   
-def index(request):
-    
+def index(request):    
     return render(request, 'home/index.html')    
 
 class VerPelicula(DetailView):
