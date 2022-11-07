@@ -63,11 +63,9 @@ def editar_pelicula(request, id):
                 pelicula.duracion = datos['duracion']
                 pelicula.clasificacion_edad = datos['clasificacion_edad']
                 pelicula.resumen = datos['resumen']
-                if datos['imagen']:
-                     pelicula.imagen = datos['imagen']
-                #else:
-                    #if request.Clear.checked:
-                       #pelicula.imagen = None                     
+                if request.FILES:   
+                    pelicula.imagen = datos['imagen']             
+                    
                 pelicula.user = request.user
                 pelicula.fe_cambio = datetime.now()
                 pelicula.save()
